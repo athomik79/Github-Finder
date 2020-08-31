@@ -1,19 +1,20 @@
 import React, { useState, useContext } from 'react';
-import PropTypes from 'prop-types';
 import GithubContext from '../../context/github/githubContext';
+import AlertContext from '../../context/alert/alertContext';
 
-const Search = ({ setAlert }) => {
+const Search = () => {
   const githubContext = useContext(GithubContext);
+  const alertContext = useContext(AlertContext);
 
-  const [text, setText] = useState(' ');
+  const [text, setText] = useState('');
 
   const onSubmit = (e) => {
     e.preventDefault();
     if (text === '') {
-      setAlert('Search cannot be empty', 'light');
+      alertContext.setAlert('Search cannot be empty', 'light');
     } else {
       githubContext.searchUsers(text);
-      setText(' ');
+      setText('');
     }
   };
 
@@ -45,10 +46,6 @@ const Search = ({ setAlert }) => {
       )}
     </div>
   );
-};
-
-Search.propTypes = {
-  setAlert: PropTypes.func.isRequired,
 };
 
 export default Search;
